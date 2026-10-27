@@ -9,6 +9,13 @@ export default function CustomCursor() {
     const moveCursor = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
+    useEffect(() => {
+  // لو الجهاز موبايل أو تاتش، اخرج فوراً وما تشغلش اللوب
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    return;
+  }
+  // ... باقي كود الماوس
+}, []);
     
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;

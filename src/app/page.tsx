@@ -18,48 +18,45 @@ export default function Home() {
 
   return (
     <>
-      <CustomCursor />
+      {/* المؤشر المخصص يعمل على الكمبيوتر فقط لتفادي تهنيج التاتش على الموبايل */}
+      <div className="hidden md:block">
+        <CustomCursor />
+      </div>
       
       {!envelopeOpened ? (
-        /* 1. ظرف الدعوة الملكي يظهر أولاً */
         <EnvelopeAnimation onOpen={() => setEnvelopeOpened(true)} />
       ) : (
-        /* 2. الموقع الرئيسي يفتح بعد فتح الظرف */
-        <main className="relative min-h-screen w-full overflow-hidden select-none bg-[#FDFBF7] text-[#2C2A29] transition-opacity duration-1000">
+        <main className="relative min-h-screen w-full overflow-x-hidden select-none bg-[#FDFBF7] text-[#2C2A29] transition-opacity duration-700">
           <Header />
           
-          {/* الواجهة و 3D */}
-          <div id="hero">
-            <Hero3D />
+          <div id="hero" className="relative">
+            {/* إلغاء الـ 3D من الموبايل لضمان نعومة وسلاسة السكرول 100% */}
+            <div className="hidden md:block">
+              <Hero3D />
+            </div>
             <Hero />
           </div>
 
-          {/* الآيات والأقوال */}
           <div id="quotes">
             <Quotes />
           </div>
 
-          {/* قصة البداية */}
           <div id="our-story">
             <OurStory />
           </div>
 
-          {/* بطاقة الدعوة */}
           <div id="invitation">
             <InvitationCard />
           </div>
 
-          {/* موقع الحفل والخرائط */}
           <div id="venue">
             <Venue />
           </div>
 
-          {/* حائط التهاني والعد التنازلي (السحابي) */}
           <div id="rsvp">
             <CountdownAndRSVP />
           </div>
 
-          {/* الخاتمة الملكية والفوتر */}
           <div id="closing">
             <Closing />
           </div>

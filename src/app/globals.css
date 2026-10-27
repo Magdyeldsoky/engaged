@@ -1,38 +1,34 @@
 @import "tailwindcss";
 
-@layer base {
-  body {
-    background-color: #f0f7fc; /* خلفية زرقاء سماوية ناعمة جداً */
-    color: #1e293b;
-    overflow-x: hidden;
-  }
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* سكرول ناعم وسريع جداً على أيفون وأندرويد */
+  scroll-behavior: smooth;
+  background-color: #FDFBF7;
+  color: #2C2A29;
 }
 
-/* تأثير الزجاج الأبيض الفاخر */
+/* تنسيق زجاجي موحد (Glassmorphism) */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(244, 241, 234, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  border: 1px solid rgba(197, 160, 89, 0.3);
 }
 
-/* تدرج الألوان الأزرق السماوي الملكي للنصوص */
-.sky-gradient-text {
-  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #0369a1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* تخصيص السكرول بار الفخم */
+::-webkit-scrollbar {
+  width: 8px;
 }
-
-/* توهج ناعم للكروت */
-.sky-border-glow {
-  transition: all 0.5s ease;
+::-webkit-scrollbar-track {
+  background: #FDFBF7;
 }
-.sky-border-glow:hover {
-  border-color: rgba(56, 189, 248, 0.5);
-  box-shadow: 0 12px 40px rgba(56, 189, 248, 0.15);
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 4px;
 }
-
-.perspective-1000 {
-  perspective: 1000px;
+::-webkit-scrollbar-thumb:hover {
+  background: #b58f4a;
 }
