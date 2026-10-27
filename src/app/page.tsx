@@ -22,7 +22,6 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
-    // فحص ما إذا كان الجهاز موبايل أو شاشة صغيرة
     const checkMobile = () => {
       if (window.innerWidth >= 768 && !window.matchMedia('(pointer: coarse)').matches) {
         setIsMobile(false);
@@ -45,7 +44,6 @@ export default function Home() {
 
   return (
     <>
-      {/* الماوس المخصص للاب فقط */}
       {!isMobile && <CustomCursor />}
       
       {!envelopeOpened ? (
@@ -55,7 +53,6 @@ export default function Home() {
           <Header />
           
           <div id="hero" className="relative">
-            {/* الـ 3D يظهر للاب فقط ولا يتحمل أصلاً على الموبايل لتوفير الرامات */}
             {!isMobile && <Hero3D />}
             <Hero />
           </div>
