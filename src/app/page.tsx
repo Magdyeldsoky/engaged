@@ -12,21 +12,27 @@ import Venue from '@/components/Venue';
 import CountdownAndRSVP from '@/components/CountdownAndRSVP';
 import Closing from '@/components/Closing';
 
-// تحميل الـ 3D والماوس فقط على أجهزة الكمبيوتر دون تحميل كودهم اصلاً على الموبايل
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
 const Hero3D = dynamic(() => import('@/components/Hero3D'), { ssr: false });
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [envelopeOpened, setEnvelopeOpened] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
     setMounted(true);
-    // الفحص الفعلي لمعالج وشاشة الجهاز
-    if (window.innerWidth >= 768 && !window.matchMedia('(pointer: coarse)').matches) {
-      setIsDesktop(true);
-    }
+    // فحص ما إذا كان الجهاز موبايل أو شاشة صغيرة
+    const checkMobile = () => {
+      if (window.innerWidth >= 768 && !window.matchMedia('(pointer: coarse)').matches) {
+        setIsMobile(false);
+      } else {
+        setIsMobile(true);
+      }
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   if (!mounted) {
@@ -39,8 +45,8 @@ export default function Home() {
 
   return (
     <>
-      {/* رندر الماوس المخصص على أجهزة الكمبيوتر فقط */}
-      {isDesktop && <CustomCursor />}
+      {/* الماوس المخصص للاب فقط */}
+      {!isMobile && <CustomCursor />}
       
       {!envelopeOpened ? (
         <EnvelopeAnimation onOpen={() => setEnvelopeOpened(true)} />
@@ -49,8 +55,8 @@ export default function Home() {
           <Header />
           
           <div id="hero" className="relative">
-            {/* رندر الـ 3D على أجهزة الكمبيوتر فقط لمنع استهلاك رامات الجوال نهائياً */}
-            {isDesktop && <Hero3D />}
+            {/* الـ 3D يظهر للاب فقط ولا يتحمل أصلاً على الموبايل لتوفير الرامات */}
+            {!isMobile && <Hero3D />}
             <Hero />
           </div>
 
