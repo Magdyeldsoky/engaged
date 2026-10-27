@@ -1,17 +1,32 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Heart } from 'lucide-react';
 
 export default function InvitationCard() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      if (window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const rotateX = useTransform(y, [-100, 100], [6, -6]);
-  const rotateY = useTransform(x, [-100, 100], [-6, 6]);
+  const rotateX = useTransform(y, [-100, 100], [4, -4]);
+  const rotateY = useTransform(x, [-100, 100], [-4, 4]);
 
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
-    if (window.innerWidth < 768) return; 
+    if (isMobile) return;
     const card = event.currentTarget.getBoundingClientRect();
     const width = card.width;
     const height = card.height;
@@ -27,42 +42,52 @@ export default function InvitationCard() {
   }
 
   return (
-    <section className="w-full py-12 md:py-24 px-4 flex flex-col items-center justify-center z-10 relative">
-      <h2 className="font-alexandria text-2xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-luxury-gold">
-        بطاقة الدعوة الرقمية
-      </h2>
+    <section className="w-full py-16 md:py-24 px-4 flex flex-col items-center justify-center relative z-10">
+      <div className="text-center mb-10">
+        <h2 className="font-alexandria text-2xl md:text-3xl font-bold text-[#2C2A29]">
+          بطاقة الدعوة
+        </h2>
+      </div>
       
-      <div className="perspective-1000 w-full max-w-sm md:max-w-md px-2">
+      <div className="perspective-1000 w-full max-w-md px-2">
         <motion.div
-          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+          style={!isMobile ? { rotateX, rotateY, transformStyle: "preserve-3d" } : {}}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="glass-panel w-full aspect-[3/4.2] md:aspect-[3/4] p-6 md:p-10 rounded-[2.5rem] relative flex flex-col justify-between shadow-2xl border border-luxury-gold/30 text-center gold-border-glow bg-luxury-black/60"
+          className="glass-panel w-full aspect-[3/4.2] md:aspect-[3/4] p-8 md:p-12 rounded-[2.5rem] relative flex flex-col justify-between shadow-2xl border border-[#C5A059]/40 text-center bg-[#F4F1EA]/90 overflow-hidden"
         >
-          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-luxury-gold/10 to-transparent rounded-t-[2.5rem] pointer-events-none" />
+          <div className="absolute inset-3 rounded-[2rem] border border-[#C5A059]/20 pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#C5A059]/15 to-transparent rounded-t-[2.5rem] pointer-events-none" />
           
-          <div className="flex justify-center mt-2">
-            <Sparkles className="w-6 h-6 text-luxury-gold opacity-80 animate-pulse" />
+          <div className="flex justify-center mt-2 relative z-10">
+            <div className="w-12 h-12 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/30 flex items-center justify-center text-[#C5A059] shadow-inner">
+              <Sparkles className="w-6 h-6" />
+            </div>
           </div>
 
-          <div className="space-y-4 md:space-y-6" style={{ transform: "translateZ(20px)" }}>
-            <p className="font-cairo text-xs text-luxury-gold tracking-[0.25em] uppercase font-semibold">
-              دعوة خاصة لحفل خطوبة مجدي ومنة
-            </p>
-            <h3 className="font-alexandria text-xl sm:text-2xl md:text-3xl font-bold tracking-wide text-luxury-cream">
-              بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+          <div className="space-y-6 relative z-10 my-auto" style={!isMobile ? { transform: "translateZ(20px)" } : {}}>
+            <h3 className="font-alexandria text-xl md:text-2xl font-bold tracking-wide text-[#2C2A29]">
+              يسعدنا حضوركم
             </h3>
-            <p className="font-cairo text-sm md:text-base text-luxury-cream/80 leading-relaxed max-w-xs mx-auto px-1">
-              &ldquo;وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً&rdquo;
+            
+            <div className="w-16 h-[1px] bg-[#C5A059]/40 mx-auto" />
+
+            <p className="font-cairo text-sm md:text-base text-[#2C2A29]/80 leading-loose max-w-sm mx-auto">
+              يسعدنا ويشرفنا حضوركم حفل خطوبتنا ومشاركتنا فرحتنا بهذه الليلة المميزة.
             </p>
-            <p className="font-cairo text-xs md:text-sm text-luxury-gold max-w-xs mx-auto font-medium leading-relaxed">
-              يسعدنا ويشرفنا دعوتكم لحضور حفل خطوبتنا ومشاركتنا فرحتنا، وبحضوركم تكتمل بهجتنا.
-            </p>
+
+            <div className="pt-2 flex items-center justify-center gap-2 text-[#C5A059]">
+              <Heart className="w-4 h-4 fill-current text-[#C5A059]" />
+              <span className="font-alexandria text-xs uppercase tracking-widest font-bold text-[#2C2A29]/70">
+                نتشرف بوجودكم
+              </span>
+              <Heart className="w-4 h-4 fill-current text-[#C5A059]" />
+            </div>
           </div>
 
-          <div className="mb-2" style={{ transform: "translateZ(10px)" }}>
-            <p className="font-alexandria text-xs md:text-base text-luxury-cream/50 font-light tracking-widest">
-              العاقبة لديكم بالمسرات
+          <div className="relative z-10 pb-2" style={!isMobile ? { transform: "translateZ(10px)" } : {}}>
+            <p className="font-alexandria text-xs md:text-sm text-[#C5A059] font-bold tracking-widest">
+              مجدي ومنة
             </p>
           </div>
         </motion.div>
