@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #f0f7fc; /* خلفية زرقاء سماوية ناعمة جداً */
+    color: #1e293b;
+    overflow-x: hidden;
+  }
+}
+
+/* تأثير الزجاج الأبيض الفاخر */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+}
+
+/* تدرج الألوان الأزرق السماوي الملكي للنصوص */
+.sky-gradient-text {
+  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #0369a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* توهج ناعم للكروت */
+.sky-border-glow {
+  transition: all 0.5s ease;
+}
+.sky-border-glow:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 12px 40px rgba(56, 189, 248, 0.15);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
