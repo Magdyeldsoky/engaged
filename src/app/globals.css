@@ -12,9 +12,9 @@ html, body {
 
 /* تنسيق زجاجي موحد (Glassmorphism) */
 .glass-panel {
-  background: rgba(244, 241, 234, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(244, 241, 234, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(197, 160, 89, 0.3);
 }
 
