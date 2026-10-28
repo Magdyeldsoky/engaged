@@ -10,7 +10,8 @@ interface Wish {
 }
 
 export default function CountdownAndRSVP() {
-  const targetDate = new Date('2026-06-15T20:00:00').getTime();
+  // ضبط تاريخ الحفل على الجمعة 13-11-2026 الساعة 7:00 مساءً
+  const targetDate = new Date('2026-11-13T19:00:00').getTime();
   const SHEET_API_URL = 'https://api.sheetbest.com/sheets/3d9b5f29-6df8-41d4-bff9-f43608ba3983';
 
   const [timeLeft, setTimeLeft] = useState({
@@ -25,7 +26,7 @@ export default function CountdownAndRSVP() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // قائمة التهاني الافتراضية لحين تحميل البيانات من السحابة
+  // قائمة التهاني الافتراضية
   const [wishes, setWishes] = useState<Wish[]>([
     { id: 1, name: 'أحمد ومي', message: 'ألف مبروك يا مجدي ويا منة، ربنا يتمم لكم على خير! ❤️' },
     { id: 2, name: 'عمر مصطفى', message: 'أجمل عروسين في الدنيا، مبارك الخطوبة! 💍' }
@@ -54,7 +55,7 @@ export default function CountdownAndRSVP() {
 
   // 2. تحديث العداد التنازلي كل ثانية
   useEffect(() => {
-    const interval = setInterval(() => {
+    const updateCountdown = () => {
       const now = new Date().getTime();
       const difference = targetDate - now;
 
@@ -65,8 +66,13 @@ export default function CountdownAndRSVP() {
           minutes: Math.floor((difference / 1000 / 60) % 60),
           seconds: Math.floor((difference / 1000) % 60),
         });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
-    }, 1000);
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
   }, [targetDate]);
@@ -110,13 +116,7 @@ export default function CountdownAndRSVP() {
 
   return (
     <section className="w-full py-16 md:py-24 px-4 flex flex-col items-center justify-center z-10 relative">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="max-w-4xl w-full glass-panel p-6 md:p-12 rounded-[2.5rem] gold-border-glow bg-luxury-black/80 shadow-2xl relative overflow-hidden text-center"
-      >
+      <div className="max-w-4xl w-full glass-panel p-6 md:p-12 rounded-[2.5rem] gold-border-glow bg-luxury-black/80 shadow-2xl relative overflow-hidden text-center">
         <div className="absolute inset-0 bg-gradient-to-b from-luxury-gold/5 via-transparent to-transparent pointer-events-none" />
 
         <div className="w-12 h-12 rounded-full bg-luxury-gold/10 flex items-center justify-center mx-auto mb-4 text-luxury-gold border border-luxury-gold/20">
@@ -124,10 +124,10 @@ export default function CountdownAndRSVP() {
         </div>
 
         <h2 className="font-alexandria text-2xl md:text-4xl font-bold text-luxury-cream mb-2">
-          تنازلّي نحو بدايه خطوه العمر
+          تنازلي نحو بدايه خطوه العمر
         </h2>
         <p className="font-cairo text-sm text-luxury-gold mb-8 tracking-widest uppercase">
-          عد التنازلي لحفل خطوبة مجدي ومنة
+          العد التنازلي لحفل خطوبة مجدي ومنة — الجمعة 13 نوفمبر 2026 (7:00 مساءً)
         </p>
 
         {/* خانات العد التنازلي */}
@@ -162,11 +162,7 @@ export default function CountdownAndRSVP() {
           </p>
 
           {submitted ? (
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="glass-panel p-6 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 flex flex-col items-center gap-2"
-            >
+            <div className="glass-panel p-6 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 flex flex-col items-center gap-2">
               <CheckCircle2 className="w-8 h-8 text-emerald-400" />
               <p className="font-alexandria font-bold text-lg">تمت إرسال رسالتك وتأكيد حضورك!</p>
               <p className="font-cairo text-xs text-emerald-300/80">شكراً لكلماتك الرائعة، تم إدراج تهنئتك بنجاح.</p>
@@ -176,7 +172,7 @@ export default function CountdownAndRSVP() {
               >
                 إرسال رسالة أخرى
               </button>
-            </motion.div>
+            </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <input
@@ -247,7 +243,7 @@ export default function CountdownAndRSVP() {
             </motion.div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

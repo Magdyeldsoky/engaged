@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { MapPin, Navigation, ExternalLink } from 'lucide-react';
+import { MapPin, Navigation, ExternalLink, Home } from 'lucide-react';
 
 export default function Venue() {
   const mapUrl = "https://maps.app.goo.gl/48uyU5m684Mf6QLn7";
@@ -18,13 +18,17 @@ export default function Venue() {
           <MapPin className="w-4 h-4 md:w-5 md:h-5" />
         </div>
         
-        <h2 className="font-alexandria text-xl md:text-3xl font-bold text-luxury-cream mb-2 md:mb-4">
+        <h2 className="font-alexandria text-xl md:text-3xl font-bold text-luxury-cream mb-2 md:mb-3">
           موقع حفل الخطوبة
         </h2>
 
-        <p className="font-cairo text-luxury-gold font-medium text-sm md:text-base mb-6 md:mb-8">
-          حفل خطوبة مجدي ❤️ منة
-        </p>
+        {/* وصف العنوان الدقيق */}
+        <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-luxury-gold/10 border border-luxury-gold/30 mb-6 md:mb-8">
+          <Home className="w-4 h-4 text-luxury-gold" />
+          <p className="font-cairo text-luxury-gold font-semibold text-xs md:text-sm">
+            منزل العروسة في قرية زوير - مركز شبين الكوم - المنوفية
+          </p>
+        </div>
         
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-8 items-center">
           <div className="text-center lg:text-right space-y-4 order-2 lg:order-1">
@@ -32,7 +36,7 @@ export default function Venue() {
               يسعدنا حضوركم ومشاركتنا فرحتنا
             </h3>
             <p className="font-cairo text-luxury-cream/70 leading-relaxed text-xs md:text-sm">
-              يمكنكم الضغط على الزر أدناه للحصول على الاتجاهات المباشرة عبر خرائط جوجل والوصول لـ قاعة الحفل بكل سهولة.
+              يمكنكم الضغط على الزر أدناه للحصول على الاتجاهات المباشرة عبر خرائط جوجل والوصول لـ مكان الحفل بكل سهولة.
             </p>
 
             <div className="pt-2">

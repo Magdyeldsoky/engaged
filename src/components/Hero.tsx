@@ -67,11 +67,11 @@ export default function Hero() {
           </motion.h1>
         </div>
 
-        {/* نبذة أو تاريخ مختصر */}
+        {/* التاريخ المحدث متطابق مع العداد */}
         <div className="mt-6 mb-10 inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-[#FDFBF7] border border-[#C5A059]/20 shadow-sm">
           <Calendar className="w-4 h-4 text-[#C5A059]" />
           <span className="font-cairo text-xs md:text-sm font-medium text-[#2C2A29]/90">
-            نتشرف بحضوركم في حفل خطوبتنا يوم 15 ديسمبر 2026
+            نتشرف بحضوركم في حفل خطوبتنا يوم الجمعة 13 نوفمبر 2026
           </span>
         </div>
 

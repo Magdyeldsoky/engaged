@@ -33,7 +33,7 @@ export default function Closing() {
         </div>
 
         <p className="font-cairo text-xs text-[#2C2A29]/50 tracking-wider">
-          جميع الحقوق محفوظة • حفل خطوبة مجدي ومنة 2026
+           حفل خطوبة مجدي ومنة 2026
         </p>
       </motion.div>
     </footer>
