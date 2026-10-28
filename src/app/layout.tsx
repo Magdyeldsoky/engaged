@@ -24,7 +24,29 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "دعوة خطوبة: مجدي ❤️ منة",
-  description: "يسرنا دعوتكم لمشاركتنا أجمل لحظات حياتنا - الموقع الرسمي لدعوة خطوبة مجدي ومنة",
+  description: "يسرنا دعوتكم لمشاركتنا أجمل لحظات حياتنا في حفل خطوبة مجدي ومنة - الجمعة 13 نوفمبر 2026 بقرية زوير",
+  openGraph: {
+    title: "حفل خطوبة مجدي ومنة 💍",
+    description: "نتشرف بحضوركم لمشاركتنا فرحتنا يوم الجمعة 13 نوفمبر 2026 الساعة 7:00 مساءً بقرية زوير - شبين الكوم",
+    url: "https://engaged-xzcy.vercel.app",
+    siteName: "حفل خطوبة مجدي ومنة",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "دعوة حفل خطوبة مجدي ومنة",
+      },
+    ],
+    locale: "ar_AR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "حفل خطوبة مجدي ومنة 💍",
+    description: "نتشرف بحضوركم لمشاركتنا فرحتنا يوم الجمعة 13 نوفمبر 2026",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
