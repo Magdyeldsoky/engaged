@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Heart, Sparkles, Calendar, MapPin } from 'lucide-react';
+import { Heart, Sparkles, Calendar, MapPin, MessageSquareHeart } from 'lucide-react';
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
@@ -76,21 +76,29 @@ export default function Hero() {
         </div>
 
         {/* أزرار التنقل السريعة الاحترافية */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={() => scrollToSection('invitation')}
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#C5A059] text-[#FDFBF7] font-cairo font-bold text-sm hover:bg-[#b58f4a] transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#C5A059] text-[#FDFBF7] font-cairo font-bold text-sm hover:bg-[#b58f4a] transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer flex items-center justify-center gap-2"
           >
             <Heart className="w-4 h-4 fill-current" />
-            <span>افتح بطاقة الدعوة</span>
+            <span>بطاقة الدعوة</span>
           </button>
 
           <button
             onClick={() => scrollToSection('venue')}
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#FDFBF7] text-[#2C2A29] border border-[#C5A059]/40 font-cairo font-bold text-sm hover:bg-[#C5A059]/10 transition-all duration-300 shadow-md hover:scale-105 cursor-pointer flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#FDFBF7] text-[#2C2A29] border border-[#C5A059]/40 font-cairo font-bold text-sm hover:bg-[#C5A059]/10 transition-all duration-300 shadow-md hover:scale-105 cursor-pointer flex items-center justify-center gap-2"
           >
             <MapPin className="w-4 h-4 text-[#C5A059]" />
-            <span>موقع الحفل والخرائط</span>
+            <span>موقع الحفل</span>
+          </button>
+
+          <button
+            onClick={() => scrollToSection('rsvp')}
+            className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#2C2A29] text-[#FDFBF7] border border-[#C5A059]/40 font-cairo font-bold text-sm hover:bg-[#C5A059] hover:text-[#2C2A29] transition-all duration-300 shadow-md hover:scale-105 cursor-pointer flex items-center justify-center gap-2"
+          >
+            <MessageSquareHeart className="w-4 h-4 text-[#C5A059] group-hover:text-[#2C2A29]" />
+            <span>اكتب تهنئتك</span>
           </button>
         </div>
 
