@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Clock, Send, CheckCircle2, MessageSquareHeart } from 'lucide-react';
+import { Clock, Send, CheckCircle2, MessageSquareHeart, Heart, User } from 'lucide-react';
 
 interface Wish {
   id: number;
@@ -77,7 +76,7 @@ export default function CountdownAndRSVP() {
     return () => clearInterval(interval);
   }, [targetDate]);
 
-  // 3. إرسال التهنئة إلى Google Sheets وإضافتها مباشرة للشريط
+  // 3. إرسال التهنئة إلى Google Sheets وإضافتها مباشرة في القائمة
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!guestMessage.trim()) return;
@@ -120,13 +119,13 @@ export default function CountdownAndRSVP() {
         <div className="absolute inset-0 bg-gradient-to-b from-luxury-gold/5 via-transparent to-transparent pointer-events-none" />
 
         <div className="w-12 h-12 rounded-full bg-luxury-gold/10 flex items-center justify-center mx-auto mb-4 text-luxury-gold border border-luxury-gold/20">
-          <Clock className="w-6 h-6 animate-spin-slow" />
+          <Clock className="w-6 h-6" />
         </div>
 
         <h2 className="font-alexandria text-2xl md:text-4xl font-bold text-luxury-cream mb-2">
           تنازلي نحو بدايه خطوه العمر
         </h2>
-        <p className="font-cairo text-sm text-luxury-gold mb-8 tracking-widest uppercase">
+        <p className="font-cairo text-xs md:text-sm text-luxury-gold mb-8 tracking-widest uppercase">
           العد التنازلي لحفل خطوبة مجدي ومنة — الجمعة 13 نوفمبر 2026 (7:00 مساءً)
         </p>
 
@@ -158,14 +157,14 @@ export default function CountdownAndRSVP() {
             <span>شاركونا أمنياتكم وتهانيكم</span>
           </h3>
           <p className="font-cairo text-xs md:text-sm text-luxury-cream/60 mb-6">
-            أرسل كلمة طيبة أو رسالة تهنئة لـ مجدي ومنة لتظهر مباشرة في الشريط الشرفي وتسجل سحابياً.
+            أرسل كلمة طيبة أو رسالة تهنئة لـ مجدي ومنة لتظهر فوراً في سجل المباركات بالأسفل.
           </p>
 
           {submitted ? (
             <div className="glass-panel p-6 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 flex flex-col items-center gap-2">
               <CheckCircle2 className="w-8 h-8 text-emerald-400" />
-              <p className="font-alexandria font-bold text-lg">تمت إرسال رسالتك وتأكيد حضورك!</p>
-              <p className="font-cairo text-xs text-emerald-300/80">شكراً لكلماتك الرائعة، تم إدراج تهنئتك بنجاح.</p>
+              <p className="font-alexandria font-bold text-lg">تم إرسال رسالتك بنجاح!</p>
+              <p className="font-cairo text-xs text-emerald-300/80">شكراً لكلماتك الطيبة، ظهرت تهنئتك الآن بأسفل الصفحة.</p>
               <button 
                 onClick={() => setSubmitted(false)}
                 className="mt-2 text-xs text-luxury-gold underline cursor-pointer hover:text-luxury-gold-light"
@@ -195,54 +194,59 @@ export default function CountdownAndRSVP() {
                 disabled={loading}
                 className="px-6 py-3.5 rounded-xl bg-luxury-gold text-luxury-black font-cairo font-bold text-sm hover:bg-luxury-gold-light transition-all duration-300 shadow-lg flex items-center justify-center gap-2 cursor-pointer mt-1 disabled:opacity-50"
               >
-                <span>{loading ? 'جاري الإرسال والتسجيل...' : 'إرسال التهنئة وتأكيد الحضور'}</span>
+                <span>{loading ? 'جاري التسجيل...' : 'إرسال التهنئة'}</span>
                 <Send className="w-4 h-4" />
               </button>
             </form>
           )}
         </div>
 
-        {/* الشريط الوثائقي المتحرك */}
-        <div className="w-full pt-6 border-t border-luxury-gold/20 relative overflow-hidden">
-          <div className="flex items-center gap-2 justify-center mb-4">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <p className="font-alexandria text-xs text-luxury-gold tracking-widest uppercase font-semibold">
-              شريط تهاني الأحباء والمحبيّن (بث مباشر سحابي)
-            </p>
+        {/* قسم التعليقات والتهاني الثابت والمرتب */}
+        <div className="w-full pt-8 border-t border-luxury-gold/20 text-right">
+          <div className="flex items-center justify-between mb-6 px-2">
+            <div className="flex items-center gap-2">
+              <MessageSquareHeart className="w-5 h-5 text-luxury-gold" />
+              <h4 className="font-alexandria text-lg font-bold text-luxury-cream">
+                سجل تهاني الأحباء ({wishes.length})
+              </h4>
+            </div>
+            <span className="font-cairo text-xs text-luxury-gold/80 bg-luxury-gold/10 px-3 py-1 rounded-full border border-luxury-gold/20">
+              محدث بملف جوجل شيت
+            </span>
           </div>
 
-          <div className="w-full overflow-hidden flex relative py-2">
-            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-luxury-black/90 to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-luxury-black/90 to-transparent z-10 pointer-events-none" />
-
-            <motion.div
-              className="flex gap-6 whitespace-nowrap min-w-full"
-              animate={{ x: [0, -1000] }}
-              transition={{
-                x: {
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 25,
-                  ease: "linear",
-                },
-              }}
-            >
-              {[...wishes, ...wishes].map((wish, index) => (
+          {/* قائمة التعليقات بسكرول أنيق وقابلة للقراءة */}
+          <div className="max-h-[380px] overflow-y-auto space-y-3 pl-1 pr-1 custom-scrollbar">
+            {wishes.map((wish, index) => {
+              const firstLetter = wish.name ? wish.name.trim().charAt(0) : 'م';
+              return (
                 <div
                   key={`${wish.id}-${index}`}
-                  className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass-panel border border-luxury-gold/30 bg-luxury-black/40 text-right shadow-sm"
+                  className="glass-panel p-4 rounded-2xl border border-luxury-gold/20 bg-luxury-black/40 flex items-start gap-3.5 shadow-sm hover:border-luxury-gold/40 transition-colors"
                 >
-                  <span className="font-alexandria text-xs font-bold text-luxury-gold">
-                    {wish.name}:
-                  </span>
-                  <span className="font-cairo text-xs text-luxury-cream/90 font-light">
-                    &ldquo;{wish.message}&rdquo;
-                  </span>
+                  {/* الأفاتار الشخصي */}
+                  <div className="w-10 h-10 rounded-full bg-luxury-gold/20 border border-luxury-gold/40 flex items-center justify-center text-luxury-gold font-alexandria font-bold text-sm shrink-0 mt-0.5">
+                    {firstLetter}
+                  </div>
+
+                  {/* نص التعليق والاسم */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="font-alexandria text-sm font-bold text-luxury-gold truncate">
+                        {wish.name}
+                      </span>
+                      <Heart className="w-3.5 h-3.5 text-luxury-gold/40 fill-luxury-gold/20 shrink-0" />
+                    </div>
+                    <p className="font-cairo text-xs md:text-sm text-luxury-cream/90 leading-relaxed break-words">
+                      {wish.message}
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </motion.div>
+              );
+            })}
           </div>
         </div>
+
       </div>
     </section>
   );
